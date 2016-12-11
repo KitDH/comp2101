@@ -1,16 +1,17 @@
 #!/bin/bash
 
 # A script that prompts the user for 2 numbers.
-# It Performs each of the 5 arithmetic operations
-# on the numbers, and display the results in a user-friendly way
+# This script performs each of the 5 arithmetic operations on the numbers the
+# user inputs, then display the results in a more user-friendly way than
+# previous scripts.
 
-read -p "Give me a number, " firstnum
-read -p "Give me a second number, " secondnum
+read -p "Please enter a number: " firstnumber
+read -p "Please enter a second number: " secondnumber
 
-sum=$(( firstnum + secondnum ))
-echo "$firstnum plus $secondnum equals $sum."
+sum=$(( firstnumber + secondnumber ))
+echo "$firstnumber plus $secondnumber equals $sum."
 
-echo "$firstnum minus $secondnum equals $(( firstnum - secondnum ))."
-echo "$firstnum times $secondnum equals $(( firstnum * secondnum ))."
-echo "$firstnum divided by $secondnum equals $(( firstnum / secondnum ))."
-echo "$firstnum divided by $secondnum leaves a remainder of $(( firstnum % secondnum ))."
+echo "$firstnumber minus $secondnumber equals $(( firstnumber - secondnumber ))."
+echo "$firstnumber times $secondnumber equals $(( firstnumber * secondnumber ))."
+echo "$firstnumber divided by $secondnumber equals $(( firstnumber / secondnumber ))."
+echo "$firstnumber divided by $secondnumber leaves a remainder of $(( firstnumber % secondnumber ))."

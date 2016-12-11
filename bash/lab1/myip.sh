@@ -1,7 +1,8 @@
 #!/bin/bash
-# Display my public IP address acorrding to icanhazip "dot" com
+# This script will grab the VM's public IP address from the icanhazip.com
+# service
 
 wget -qO - http://icanhazip.com
 
-#an alternate way to grab the IP address with the cirl command
+# Another way to grab the IP address is with the curl command:
 # curl icanhazip.com

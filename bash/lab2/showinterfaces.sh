@@ -1,21 +1,21 @@
 #!/bin/bash
 
-# Creates an array using the output of ifconfig which has the names of the
-# network interfaces in it. It uses those names to extract the ip addresses of
-# the interfaces, also using ifconfig output. It also parses the output of route
-# -n to display the ip address of the default gateway.
+# This script creates an array from the ifconfig output, which contains the
+# names of the network interfaces. With those names, it is able to extract the
+# ip addresses of the interfaces from ifconfig output. It displays the default
+# gateway's ip address by parsing the output of route -n.
 
 declare -a ips
 
-interfacenames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
-ips[0]=`ifconfig ${interfacenames[0]} |grep 'inet addr' |sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
-ips[1]=`ifconfig ${interfacenames[1]} |grep 'inet addr' |sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
+intnames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
+ips[0]=`ifconfig ${intnames[0]} |grep 'inet addr' |sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
+ips[1]=`ifconfig ${intnames[1]} |grep 'inet addr' |sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
 
-gatewayip=`route -n |grep '^0.0.0.0 ' |awk '{print$2}'`
+gateway=`route -n |grep '^0.0.0.0 ' |awk '{print$2}'`
 
-cat <<EOF
-Interface ${interfacenames[0]} has address ${ips[0]}
-Interface ${interfacenames[1]} has address ${ips[1]}
+cat <<BLARGH
+Interface ${intnames[0]}'s address is ${ips[0]}.
+Interface ${intnames[1]}'s address is ${ips[1]}.
 
-The default gateway is $gatewayip
-EOF
+The default gateway is $gateway.
+BLARGH

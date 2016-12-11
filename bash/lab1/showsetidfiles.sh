@@ -1,11 +1,12 @@
 #!/bin/bash
-# show a list of all the setuid and setid files in /usr 
+# This scripts shows a list of all the setuid and setid files in the /usr
+# directory
 
-echo "SETUID files in /usr"
-echo "--------------------"
+echo "The SETUID files in /usr are:"
+echo "-----------------------------"
 find /usr -type f -perm -4000 -ls
 echo
-echo "SETGID files in /usr"
-echo "--------------------"
+echo "The SETGID files in /usr are:"
+echo "-----------------------------"
 find /usr -type f -perm -2000 -ls
 

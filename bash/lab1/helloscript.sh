@@ -1,5 +1,6 @@
 #!/bin/bash
-#this script prints out Hello World! using obfuscated comments
+#this script prints out Hello World! through a bunchof obfuscated changed to
+#what initially seems like gibberish 
 
 echo -n "helb wold" |
       sed -e "s/b/o/g" -e "s/l/ll/" -e "s/ol/orl/" |

@@ -1,25 +1,25 @@
 #!/bin/bash
 
-# Creates an array containing 11 different food names. Creates two variables w/
-# random numbers in them from 1-6 each. Adds the two numbers together and uses
-# the sum as an index to display a food from your array.
+# This script creates an array with eleven different foods. It creates two
+# variables, each with random numbers in them from 1 to 6. It adds the two
+# numbers together & uses the sum as an index to display a food from your array.
 
 
-# create an array of food
-foods=(apple banana pizza wings beer steak sandwich "pop tarts" chicken ribs dirt)
+# first we create a food array 
+foodlist=(cheese bread tomato pizza rice souvlaki "pan pizza" "deep-dish pizza" hamburger porkchop mud)
 
-#roll two standard six-sided dice
+# then we roll two six-sided dice
 die1=$((RANDOM %6))
 die2=$((RANDOM %6))
 
-# the food index is 0-10
+# the food index represents the sum of the rolled dice values (0-10)
 foodindex=$((die1 + die2))
 
-# dicetotal, requires an additional 2 because the remainders generated with a
-# range of 0-5 while dice have a range of 1-6
+# we have to add 2 to the dicetotal value because the computer generates numbers
+# with a range of 0-5 instead of the 1-6 range of real-world dic
 dicetotal=$((die1 + die2 + 2))
 
 #look up thr data first to make the output command more readable
-food=${foods[$foodindex]}
+foodlist=${foodlist[$foodindex]}
 #everything done?!!?
-echo "The random number generator rolled $dicetotal which produces $food!"
+echo "The random number generator rolled a value of $dicetotal, which produces $foodlist!"

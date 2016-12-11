@@ -1,4 +1,4 @@
 #!/bin/bash
-# use rsync to backup the personal bin directoru to a personal backups directory
+# using rsync as a way to backup my personal bin directory to a backup directory
 
 rsync -arv ~/bin/ ~/backups
