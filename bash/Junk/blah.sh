@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+
+# This script is horribly broken ;_;
+
 # This modified script creates an array from the ifconfig output, which contains
 # the names of the network interfaces. With those names, it is able to extract the
 # ip addresses of the interfaces from ifconfig output. It then displays the
@@ -37,8 +40,11 @@ while [ $# -gt 0 ]; do
                    if [[ "$x" == "$2" ]]
                    then
                      value="$2"
-                     
-                     break
+                     shift
+                   else
+                    error-Message "None of the interfaces match $value. "
+                     exit 2
+                   
                    fi
                   done
             ;;
