@@ -13,22 +13,6 @@ declare value
 intnames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`) 
 
 
-for x in "${intnames[@]}"
-      do
-       if "$x" == "$2"
-       then
-         value="$2"
-         break
-       fi
-      done
-
-
-
-#for i in "${intnames[@]}"
-#do
-# echo $i
-#done
-
 
 ### Functions
 function expectedArguments {
@@ -48,28 +32,37 @@ while [ $# -gt 0 ]; do
                   exit 0
             ;; 
             -i )  # matches the int name argument
-            
-                
-
-            
-            
-                  if [[ [${intnames[0]} =~ ^$2$ ]]; then
-                        count="$2"
-                        shift
-                  else
-                   if [[ [${intnames[1]} =~ ^$2$ ]]; then
-                         count="$2"
-                         shift
-                   else
-                    if [[ [${intnames[2]} =~ ^$2$ ]]; then
-                          count="$2"
-                          shift
-                    else
-                          error-Message "couldn't find $givenInt"
-                          exit 2
-                    fi
+                  for x in "${intnames[@]}"
+                  do
+                   if "$x" == "$2"
+                   then
+                     value="$2"
+                     
+                     break
                    fi
-                  fi
+                  done
+            ;;
+            -r | --route ) 
+            
+            
+            
+#                  if [[ [${intnames[0]} =~ ^$2$ ]]; then
+#                        count="$2"
+#                        shift
+#                  else
+#                   if [[ [${intnames[1]} =~ ^$2$ ]]; then
+#                         count="$2"
+#                         shift
+#                   else
+#                    if [[ [${intnames[2]} =~ ^$2$ ]]; then
+#                          count="$2"
+#                          shift
+#                    else
+#                          error-Message "couldn't find $givenInt"
+#                          exit 2
+#                    fi
+#                   fi
+#                  fi
             ;;
       esac
       shift
@@ -77,13 +70,13 @@ done
 
 
 
-while [ $intfindex -lt ${#intnames[@]} ]; do
-    ips[$intfindex]=`ifconfig ${intnames[$intfindex]} | grep 'inet addr' |
-                                     sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
-                                     
-    echo "Interface ${intnames[$intfindex]} has address ${ips[$intfindex]}"
-    intfindex=$((intfindex + 1))
-done
+#while [ $intindex -lt ${#intnames[@]} ]; do
+#    ips[$intindex]=`ifconfig ${intnames[$intindex]} | grep 'inet addr' |
+#                                     sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
+#                                     
+#    echo "Interface ${intnames[$intindex]} has address ${ips[$intindex]}"
+#    intfindex=$((intfindex + 1))
+#done
 
 
 #### The gateway needs to only show if the user has used the -r argument
