@@ -1,0 +1,1 @@
+﻿$adapters = gwmi -Class win32_networkadapter $ethernets = $adapters | Where-Object adaptertype -match "ethernet" $ethernets | Select-Object Name,MACAddress,    @{n="Speed(Mb)";e={$_.Speed/1000000 -as [int]}},    Netenabled,    PowerManagementSupported | Format-Table -AutoSize
