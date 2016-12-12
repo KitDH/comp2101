@@ -67,6 +67,9 @@ while [ $intfindex -lt ${#intnames[@]} ]; do
     intfindex=$((intfindex + 1))
 done
 
+
+#### The gateway needs to only show if the user has used the -r argument
+#
 #gateway=`route -n |grep '^0.0.0.0 ' |awk '{print$2}'`
 #
 #cat <<BLARGH
