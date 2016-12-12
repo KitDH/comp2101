@@ -7,14 +7,11 @@ declare -i sides ; sides=0
 
 
 ### FUNCTIONS
-function showUsage {
+function expectedArguments {
       echo "Usage: $0 [--help] [-c #] [-s #]"
 }
-function errorMessage {
-#     echo "***OH GOD WHAT DID YOU DO*** $@" >&2
-      errorContents=`basename $0`
-      echo "***AHH AN ERROR: $errorContents" >&2
-      
+function error-Message {
+    echo "***AHH AN ERROR***: $@" >&2
 }
 
 # This section deals with any command-line input the user gives
@@ -23,7 +20,7 @@ function errorMessage {
 while [ $# -gt  0 ]; do
       case "$1" in
       --help )  # matches the help argument
-            showUsage
+            expectedArguments
             exit 0
       ;; 
       -c )  # matches the count argument
@@ -31,7 +28,7 @@ while [ $# -gt  0 ]; do
                   count=$2
                   shift
             else
-                  errorMessage "The -c argument needs a number from 1 to 5"
+                  error-Message "The -c argument needs a number from 1 to 5"
                   exit 2
             fi
       ;;
@@ -41,17 +38,17 @@ while [ $# -gt  0 ]; do
                   sides=$2
                   shift
             else
-                  errorMessage "The -s argument needs a number from 4 to 20"
+                  error-Message "The -s argument needs a number from 4 to 20"
                   exit 2
             fi
             else
-                  errorMessage "The -s argument needs a number from 4 to 20"
+                  error-Message "The -s argument needs a number from 4 to 20"
                   exit 2
             fi
       ;;
       * )   # The catch-all case that returns the error function
-            showUsage
-            errorMessage "I don't understand '$1'"
+            expectedArguments
+            error-Message "I don't understand '$1'"
             exit 2
       ;;
       esac
@@ -60,21 +57,20 @@ done
 # The previous section assumes it can populate count and sides from arguments
 # given at run-time. If none were provided, we must prompt the user for them
 
-## Get a roll count if there wasn't one on the command line
-# get a valid roll count from the user
+# Get a roll count if there wasn't one on the command line
+# and make sure that it's a valid roll count
+
 until [[ $count =~ ^[1-5]$ ]]; do
       read -p "How many dice would you like to roll (from 1 to 5)? " count
-# ignore empty guesses
-      [ -n "$count" ] || :
-# specificied count must have the number 1-5 only
-#  [[ $count =~ ^[1-5]$ ]] && break
+      [ -n "$count" ] || continue # ignore empty guesses
 done
-# get a valid number of sides from the user
+
+      # get a valid number (a natural number!) of sides from the user
 while [ "$sides" -lt 4 -o "$sides" -gt 20 ]; do
-      read -p "How many sides should the dice have[4-20]? " sides
-# ignore empty number
-      [ -n "$sides" ] || :
-# specified sides must have the number 4-20 only
+      read -p "How many sides should the dice have (from 4 to 20)? " sides
+      [ -n "$sides" ] || continue # ignore an empty number
+
+      # the number of sides given must fall within the range of 4-20
       if [[ "$sides" =~ ^[1-9][0-9]*$ ]]; then
             if [ "$sides" -ge 4 -a "$sides" -le 20 ]; then
                   break
@@ -82,12 +78,14 @@ while [ "$sides" -lt 4 -o "$sides" -gt 20 ]; do
       fi
 done
 
-## Do the script's work
-# do the dice roll as many times as the user asked for
+# Finally, the part where the script actually rolls some dice!
+# This loop covers the user's ability to choose many counts
+
 for (( rolls=0 ; rolls < count ; rolls++ )); do
-# roll the dice
+      # the dice roll
       rolled=$(($RANDOM % $sides +1))
       rollnum=$(($rolls + 1))
-# show the roll results
+      
+      # What's the result?
       echo "Roll # $rollnum gave a $rolled."
 done
