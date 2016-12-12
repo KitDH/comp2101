@@ -9,7 +9,13 @@
 declare -a ips
 declare -i intIndex ; intIndex=0
 
-intnames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`)
+intnames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`) 
+
+for i in "${intnames[@]}"
+do
+ echo $i
+done
+
 
 ### Functions
 function expectedArguments {
@@ -60,3 +66,12 @@ while [ $intfindex -lt ${#intnames[@]} ]; do
     echo "Interface ${intnames[$intfindex]} has address ${ips[$intfindex]}"
     intfindex=$((intfindex + 1))
 done
+
+#gateway=`route -n |grep '^0.0.0.0 ' |awk '{print$2}'`
+#
+#cat <<BLARGH
+#Interface ${intnames[0]}'s address is ${ips[0]}.
+#Interface ${intnames[1]}'s address is ${ips[1]}.
+#
+#The default gateway is $gateway.
+#BLARGH
