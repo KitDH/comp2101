@@ -8,13 +8,26 @@
 
 declare -a ips
 declare -i intIndex ; intIndex=0
+declare value
 
 intnames=(`ifconfig |grep '^[a-zA-Z]'|awk '{print $1}'`) 
 
-for i in "${intnames[@]}"
-do
- echo $i
-done
+
+for x in "${intnames[@]}"
+      do
+       if "$x" == "$2"
+       then
+         value="$2"
+         break
+       fi
+      done
+
+
+
+#for i in "${intnames[@]}"
+#do
+# echo $i
+#done
 
 
 ### Functions
@@ -35,16 +48,21 @@ while [ $# -gt 0 ]; do
                   exit 0
             ;; 
             -i )  # matches the int name argument
+            
+                
+
+            
+            
                   if [[ [${intnames[0]} =~ ^$2$ ]]; then
-                        count=$2
+                        count="$2"
                         shift
                   else
                    if [[ [${intnames[1]} =~ ^$2$ ]]; then
-                         count=$2
+                         count="$2"
                          shift
                    else
                     if [[ [${intnames[2]} =~ ^$2$ ]]; then
-                          count=$2
+                          count="$2"
                           shift
                     else
                           error-Message "couldn't find $givenInt"
