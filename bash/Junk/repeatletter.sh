@@ -7,4 +7,3 @@
 read -p "Please enter a number: " usernum
 read -p "Please enter a letter: " userletter
 
-
