@@ -77,7 +77,7 @@ while [[ $intindex -lt ${#intnames[@]} ]]; do
                                      sed -e 's/  *inet addr://'| sed -e 's/ .*//'`
                                      
     echo "Interface ${intnames[$intindex]} has address ${ips[$intindex]}"
-    intfindex=$((intfindex + 1))
+    intindex=$((intindex + 1))
 done
 
 
